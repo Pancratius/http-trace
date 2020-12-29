@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 public class HttpTraceLog {
 
     private static final Logger log = LoggerFactory.getLogger(HttpTraceLog.class);
+    private static final String UTF_8_CHARSET  = "UTF-8";
 
     private String path;
     private String parameterMap;
@@ -66,7 +67,7 @@ public class HttpTraceLog {
         ContentCachingRequestWrapper wrapper = WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);
         if (wrapper != null) {
             try {
-                requestBody = IOUtils.toString(wrapper.getContentAsByteArray(), wrapper.getCharacterEncoding());
+                requestBody = IOUtils.toString(wrapper.getContentAsByteArray(), UTF_8_CHARSET);
             } catch (IOException e) {
                 log.error("getRequestBody parse failure");
             }
@@ -79,7 +80,7 @@ public class HttpTraceLog {
         ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class);
         if (wrapper != null) {
             try {
-                responseBody = IOUtils.toString(wrapper.getContentAsByteArray(), wrapper.getCharacterEncoding());
+                responseBody = IOUtils.toString(wrapper.getContentAsByteArray(), UTF_8_CHARSET);
             } catch (IOException e) {
                 log.error("getResponseBody parse failure");
             }
